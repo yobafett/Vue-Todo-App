@@ -1,26 +1,101 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="taskApp">
+    <div class="taskApp-header">
+      <h1>Task list</h1>
+
+      <ColorScheme :colors="colors" />
+    </div>
+
+    <ul class="taskList">
+      <TaskItem
+        v-for="task in tasks"
+        :task="task"
+        :key="task.id"
+        @click="switchComplete(task.id)"
+      />
+    </ul>
+
+    <AddForm />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import TaskItem from '@/components/TaskItem.vue';
+import AddForm from '@/components/AddForm.vue';
+import ColorScheme from '@/components/ColorScheme.vue';
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  components: { TaskItem, AddForm, ColorScheme },
+  data() {
+    return {
+      colors: ['#fcd9b8', '#e09145', '#292C35', '#17181d'],
+    };
+  },
+  computed: {
+    ...mapState({
+      tasks: (state) => state.tasksStore.tasks,
+    }),
+    ...mapGetters({
+      allTasks: 'tasksStore/allTasks',
+    }),
+  },
+  methods: {
+    ...mapMutations({
+      addTask: 'addTask',
+      switchComplete: 'switchComplete',
+    }),
+    ...mapActions({
+      //logStart: "myStore/logStart",
+    }),
+  },
+  mounted() {},
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+
+* {
+  font-family: 'Oswald', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fcd9b8;
+}
+
+.taskApp {
+  border-radius: 1px;
+  margin: 0px 20px;
+  margin-top: 50px;
+  padding: 15px;
+  background-color: #17181d;
+}
+
+.taskApp-header {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #fcd9b8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.taskApp-header h1 {
+  cursor: pointer;
+  transition: all 0.25s linear;
+}
+
+.taskApp-header h1:hover {
+  color: #e09145;
+}
+
+.taskList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
 }
 </style>
+
