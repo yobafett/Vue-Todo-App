@@ -28,9 +28,7 @@ const tasksStore = {
     ]
   },
   getters: {
-    allTasks(state) {
-      return state.tasks;
-    }
+
   },
   mutations: {
     addTask(state, task) {
@@ -49,6 +47,7 @@ const tasksStore = {
     }
   },
   actions: {
+
   }
 };
 

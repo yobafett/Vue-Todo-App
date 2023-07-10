@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapState, mapMutations, mapActions } from 'vuex';
 import TaskItem from '@/components/TaskItem.vue';
 import AddForm from '@/components/AddForm.vue';
 import ColorScheme from '@/components/ColorScheme.vue';
@@ -36,9 +36,6 @@ export default {
   computed: {
     ...mapState({
       tasks: (state) => state.tasksStore.tasks,
-    }),
-    ...mapGetters({
-      allTasks: 'tasksStore/allTasks',
     }),
   },
   methods: {
@@ -99,7 +96,7 @@ body {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 25px;
-  margin-bottom: 15px;
+  margin-bottom: 35px;
 }
 </style>
 
