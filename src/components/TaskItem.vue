@@ -61,8 +61,8 @@ export default {
 }
 
 .taskItem-text {
-  padding-right: 25px;
-  margin-bottom: 10px;
+  padding-right: 30px;
+  margin-bottom: 30px;
   transition: all 0.25s linear;
 }
 

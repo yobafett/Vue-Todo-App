@@ -65,6 +65,10 @@ export default {
   color: #fcd9b8;
 }
 
+body {
+  background-color: #17181d;
+}
+
 .taskApp {
   border-radius: 1px;
   margin: 0px 20px;
@@ -93,8 +97,8 @@ export default {
 .taskList {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 25px;
   margin-bottom: 15px;
 }
 </style>
