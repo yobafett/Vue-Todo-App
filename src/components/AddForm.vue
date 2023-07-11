@@ -1,30 +1,34 @@
 <template>
   <div class="wrapper">
-    <div
-      @click="switchClosed"
-      v-show="isClosed"
-    >
-      <div class="addBtn">+</div>
-    </div>
-    <div v-show="!isClosed">
-      <button
-        class="close-btn"
+    <transition name="fade">
+      <div
         @click="switchClosed"
+        v-show="isClosed"
       >
-        ▲
-      </button>
-      <form class="addForm">
-        <input
-          v-model="taskTitle"
-          placeholder="Task title..."
-        />
-        <input
-          v-model="taskText"
-          placeholder="Task text..."
-        />
-        <button @click="switchClosed">Add</button>
-      </form>
-    </div>
+        <div class="addBtn">+</div>
+      </div>
+    </transition>
+    <transition name="fade">
+      <div v-show="!isClosed">
+        <button
+          class="close-btn"
+          @click="switchClosed"
+        >
+          ▲
+        </button>
+        <form class="addForm">
+          <input
+            v-model="taskTitle"
+            placeholder="Task title..."
+          />
+          <input
+            v-model="taskText"
+            placeholder="Task text..."
+          />
+          <button @click="switchClosed">Add</button>
+        </form>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -51,7 +55,6 @@ export default {
   max-width: 500px;
   margin: 0 auto;
 }
-
 .close-btn {
   width: 100%;
   vertical-align: middle;
@@ -65,12 +68,10 @@ export default {
   transition: all 0.25s linear;
   user-select: none;
 }
-
 .close-btn:hover {
   background-color: #fcd9b8;
   color: #292c35;
 }
-
 .addBtn {
   height: 50px;
   line-height: 45px;
@@ -82,13 +83,11 @@ export default {
   box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
   user-select: none;
 }
-
 .addBtn:hover {
   background-color: #fcd9b8;
   color: #17181d;
   box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.5);
 }
-
 .addForm {
   border: 1px solid #fcd9b8;
   min-height: 50px;
@@ -99,7 +98,6 @@ export default {
   flex-direction: column;
   background-color: #292c35;
 }
-
 .addForm input {
   margin-bottom: 10px;
   font-size: 24px;
@@ -108,7 +106,6 @@ export default {
   padding: 5px 15px;
   box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
 }
-
 .addForm button {
   font-size: 24px;
   background-color: #17181d;
@@ -118,9 +115,37 @@ export default {
   box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
   transition: all 0.25s linear;
 }
-
 .addForm button:hover {
   background-color: #fcd9b8;
   color: #17181d;
+}
+.fade-enter-active {
+  animation: bounce-in 0.5s;
+  transform-origin: top;
+  position: absolute;
+  width: 500px;
+}
+.fade-leave-active {
+  animation: bounce-in 0.5s reverse;
+  transform-origin: top;
+  position: absolute;
+  width: 500px;
+}
+
+@keyframes bounce-in {
+  0% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(0);
+  }
+  75% {
+    transform: scaleY(1.1);
+    transform: scaleX(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+    transform: scaleX(1);
+  }
 }
 </style>
