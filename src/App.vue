@@ -15,7 +15,7 @@
       />
     </ul>
 
-    <AddForm />
+    <AddForm @create="addTask"/>
   </div>
 </template>
 

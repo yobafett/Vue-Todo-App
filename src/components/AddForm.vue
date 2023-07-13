@@ -25,7 +25,7 @@
             v-model="taskText"
             placeholder="Task text..."
           />
-          <button @click="switchClosed">Add</button>
+          <button @click.prevent="sendForm">Add</button>
         </form>
       </div>
     </transition>
@@ -38,6 +38,12 @@ export default {
   methods: {
     switchClosed() {
       this.isClosed = !this.isClosed;
+    },
+    sendForm() {
+      this.$emit('create', {
+        title: this.taskTitle,
+        text: this.taskText,
+      });
     },
   },
   data() {
