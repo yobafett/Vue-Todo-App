@@ -43,6 +43,12 @@ export default {
   height: 25px;
   width: 25px;
   background-color: #17181D;
+  transition: all 0.25s linear;
+  border: 1px solid #17181D;
+}
+
+.checkmark:hover {
+  border: 1px solid #fcd9b8;
 }
 
 /* On mouse-over, add a grey background color */
