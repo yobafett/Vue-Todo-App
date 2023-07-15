@@ -11,7 +11,6 @@
         v-for="task in tasks"
         :task="task"
         :key="task.id"
-        @click="switchComplete(task.id)"
       />
     </ul>
 
@@ -75,16 +74,18 @@ body {
 }
 
 .taskApp-header {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
   border-bottom: 1px solid #fcd9b8;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
 }
 
 .taskApp-header h1 {
   cursor: pointer;
   transition: all 0.25s linear;
+  font-size: 72px;
 }
 
 .taskApp-header h1:hover {
@@ -94,7 +95,7 @@ body {
 .taskList {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 25px;
   margin-bottom: 35px;
 }
