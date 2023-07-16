@@ -12,6 +12,7 @@
         :task="task"
         :key="task.id"
         @complete="switchComplete"
+        @delete="removeTask"
       />
     </ul>
 
@@ -42,6 +43,7 @@ export default {
     ...mapMutations({
       addTask: 'addTask',
       switchComplete: 'switchComplete',
+      removeTask: 'removeTask',
     }),
     ...mapActions({
       //logStart: "myStore/logStart",
