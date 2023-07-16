@@ -11,6 +11,7 @@
         v-for="task in tasks"
         :task="task"
         :key="task.id"
+        @complete="switchComplete"
       />
     </ul>
 
