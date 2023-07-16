@@ -5,13 +5,16 @@
         <p class="id">task id: {{ task.id }}</p>
         <p class="title">{{ task.title }}</p>
       </div>
-      <p class="delBtn">🗙</p>
+      <p class="delBtn" @click="(e) => sendDelete()">🗙</p>
     </div>
 
     <p class="text">{{ task.text }}</p>
 
     <div class="controls">
-      <CustomCheckbox :checked="task.complete" @click="(e) => sendComplete(e)"/>
+      <CustomCheckbox
+        :checked="task.complete"
+        @click="(e) => sendComplete(e)"
+      />
     </div>
   </li>
 </template>
@@ -23,11 +26,14 @@ export default {
   name: 'TaskItem',
   props: ['task'],
   methods: {
+    sendDelete() {
+      this.$emit('delete', this.task.id);
+    },
     sendComplete(e) {
-      if(e.target.checked !== undefined){
+      if (e.target.checked !== undefined) {
         this.$emit('complete', {
           id: this.task.id,
-          complete: e.target.checked
+          complete: e.target.checked,
         });
       }
     },
