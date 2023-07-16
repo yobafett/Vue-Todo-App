@@ -41,9 +41,13 @@ const tasksStore = {
 
       state.tasks = [...state.tasks, newTask];
     },
-    switchComplete(state, {id, complete}) {
+    switchComplete(state, { id, complete }) {
       const objIndex = state.tasks.findIndex((obj) => obj.id === id);
       state.tasks[objIndex].complete = complete;
+    },
+    removeTask(state, id) {
+      const objIndex = state.tasks.findIndex((obj) => obj.id === id);
+      state.tasks.splice(objIndex, 1);
     }
   },
   actions: {
