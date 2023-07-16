@@ -11,7 +11,7 @@
     <p class="text">{{ task.text }}</p>
 
     <div class="controls">
-      <CustomCheckbox :checked="task.complete" />
+      <CustomCheckbox :checked="task.complete" @click="(e) => sendComplete(e)"/>
     </div>
   </li>
 </template>
@@ -22,6 +22,16 @@ import CustomCheckbox from './CustomCheckbox';
 export default {
   name: 'TaskItem',
   props: ['task'],
+  methods: {
+    sendComplete(e) {
+      if(e.target.checked !== undefined){
+        this.$emit('complete', {
+          id: this.task.id,
+          complete: e.target.checked
+        });
+      }
+    },
+  },
   components: { CustomCheckbox },
 };
 </script>
