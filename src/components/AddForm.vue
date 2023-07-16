@@ -44,11 +44,15 @@ export default {
         title: this.taskTitle,
         text: this.taskText,
       });
+
+      this.switchClosed();
+      this.taskTitle = '';
+      this.taskText = '';
     },
   },
   data() {
     return {
-      isClosed: false,
+      isClosed: true,
       taskTitle: '',
       taskText: '',
     };
