@@ -1,34 +1,17 @@
+const taskSessionKey = 'tasks';
+
 const tasksStore = {
   state: {
     tasks: [
-      {
-        id: 1,
-        title: "Task title",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        complete: false
-      },
-      {
-        id: 2,
-        title: "Task title",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        complete: false
-      },
-      {
-        id: 3,
-        title: "Task title",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        complete: false
-      },
-      {
-        id: 4,
-        title: "Task title",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        complete: true
-      }
+      // {
+      //   id: 1,
+      //   title: "Task title",
+      //   text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      //   complete: false
+      // },
     ]
   },
   getters: {
-
   },
   mutations: {
     addTask(state, task) {
@@ -41,6 +24,9 @@ const tasksStore = {
 
       state.tasks = [...state.tasks, newTask];
     },
+    setTasks(state, tasks) {
+      state.tasks = tasks;
+    },
     switchComplete(state, { id, complete }) {
       const objIndex = state.tasks.findIndex((obj) => obj.id === id);
       state.tasks[objIndex].complete = complete;
@@ -51,7 +37,26 @@ const tasksStore = {
     }
   },
   actions: {
-
+    restoreFromSession(context) {
+      const tasksJson = window.sessionStorage.getItem(taskSessionKey)
+      context.commit('setTasks', JSON.parse(tasksJson));
+    },
+    saveToSession(context) {
+      const jsonData = JSON.stringify(context.state.tasks);
+      window.sessionStorage.setItem(taskSessionKey, jsonData);
+    },
+    addTask(context, task) {
+      context.commit('addTask', task);
+      context.dispatch('saveToSession');
+    },
+    switchComplete(context, payload) {
+      context.commit('switchComplete', payload);
+      context.dispatch('saveToSession');
+    },
+    removeTask(context, id) {
+      context.commit('removeTask', id);
+      context.dispatch('saveToSession');
+    }
   }
 };
 
