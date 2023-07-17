@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import TaskItem from '@/components/TaskItem.vue';
 import AddForm from '@/components/AddForm.vue';
 import ColorScheme from '@/components/ColorScheme.vue';
@@ -40,16 +40,16 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations({
-      addTask: 'addTask',
-      switchComplete: 'switchComplete',
-      removeTask: 'removeTask',
-    }),
     ...mapActions({
-      //logStart: "myStore/logStart",
+      addTask: "addTask",
+      restoreFromSession: "restoreFromSession",
+      switchComplete: "switchComplete",
+      removeTask: "removeTask",
     }),
   },
-  mounted() {},
+  mounted() {
+    this.restoreFromSession();
+  },
 };
 </script>
 
