@@ -6,7 +6,10 @@
       <ColorScheme :colors="colors" />
     </div>
 
-    <ul class="taskList">
+    <ul
+      class="taskList"
+      v-if="tasks.length > 0"
+    >
       <TaskItem
         v-for="task in tasks"
         :task="task"
@@ -16,7 +19,16 @@
       />
     </ul>
 
-    <AddForm @create="addTask"/>
+    <div
+      class="addNewNote"
+      v-else
+    >
+      Task list is empty.
+      <br />
+      Click + to add new one
+    </div>
+
+    <AddForm @create="addTask" />
   </div>
 </template>
 
@@ -41,10 +53,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      addTask: "addTask",
-      restoreFromSession: "restoreFromSession",
-      switchComplete: "switchComplete",
-      removeTask: "removeTask",
+      addTask: 'addTask',
+      restoreFromSession: 'restoreFromSession',
+      switchComplete: 'switchComplete',
+      removeTask: 'removeTask',
     }),
   },
   mounted() {
@@ -93,6 +105,14 @@ body {
 
 .taskApp-header h1:hover {
   color: #e09145;
+}
+
+.addNewNote {
+  display: flex;
+  justify-content: center;
+  font-size: 42px;
+  margin-bottom: 25px;
+  text-align: center;
 }
 
 .taskList {
