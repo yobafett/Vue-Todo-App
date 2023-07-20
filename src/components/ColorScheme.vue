@@ -7,13 +7,14 @@
       :key="i"
     >
       <div
-        class="item-colorBlock"
+        class="colorBlock"
         :style="{ backgroundColor: color }"
       ></div>
       {{ color }}
     </div>
   </div>
 </template>
+
 <script>
 export default {
   name: 'ColorScheme',
@@ -24,25 +25,23 @@ export default {
   },
 };
 </script>
-<style scoped>
+
+<style scoped lang="scss">
 .wrapper {
   display: flex;
-}
-
-.title {
-  margin-right: 10px;
-}
-
-.item {
-  display: flex;
-  width: auto;
-  margin-right: 10px;
-}
-
-.item-colorBlock {
-  width: 25px;
-  min-height: 25px;
-  border: #fff solid 1px;
-  margin-right: 5px;
+  .title {
+    margin-right: 10px;
+  }
+  .item {
+    display: flex;
+    width: auto;
+    margin-right: 10px;
+    .colorBlock {
+      width: 25px;
+      min-height: 25px;
+      border: #fff solid 1px;
+      margin-right: 5px;
+    }
+  }
 }
 </style>
