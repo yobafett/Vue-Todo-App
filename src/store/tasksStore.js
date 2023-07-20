@@ -39,7 +39,8 @@ const tasksStore = {
   actions: {
     restoreFromSession(context) {
       const tasksJson = window.sessionStorage.getItem(taskSessionKey)
-      context.commit('setTasks', JSON.parse(tasksJson));
+      if (tasksJson !== null)
+        context.commit('setTasks', JSON.parse(tasksJson));
     },
     saveToSession(context) {
       const jsonData = JSON.stringify(context.state.tasks);
