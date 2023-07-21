@@ -6,61 +6,30 @@
       <ColorScheme :colors="colors" />
     </div>
 
-    <ul
-      class="taskList"
-      v-if="tasks.length > 0"
-    >
-      <TaskItem
-        v-for="task in tasks"
-        :task="task"
-        :key="task.id"
-        @complete="switchComplete"
-        @delete="removeTask"
-      />
-    </ul>
-
-    <div
-      class="addNewNote"
-      v-else
-    >
-      Task list is empty.
-      <br />
-      Click + to add new one
-    </div>
+    <TaskList />
 
     <AddForm @create="addTask" />
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import TaskItem from '@/components/TaskItem.vue';
+import { mapActions } from 'vuex';
 import AddForm from '@/components/AddForm.vue';
 import ColorScheme from '@/components/ColorScheme.vue';
+import TaskList from '@/components/TaskList.vue';
 
 export default {
   name: 'App',
-  components: { TaskItem, AddForm, ColorScheme },
+  components: { AddForm, ColorScheme, TaskList },
   data() {
     return {
       colors: ['#fcd9b8', '#e09145', '#292C35', '#17181d'],
     };
   },
-  computed: {
-    ...mapState({
-      tasks: (state) => state.tasksStore.tasks,
-    }),
-  },
   methods: {
     ...mapActions({
       addTask: 'addTask',
-      restoreFromSession: 'restoreFromSession',
-      switchComplete: 'switchComplete',
-      removeTask: 'removeTask',
     }),
-  },
-  mounted() {
-    this.restoreFromSession();
   },
 };
 </script>
@@ -105,22 +74,6 @@ body {
 
 .taskApp-header h1:hover {
   color: #e09145;
-}
-
-.addNewNote {
-  display: flex;
-  justify-content: center;
-  font-size: 42px;
-  margin-bottom: 25px;
-  text-align: center;
-}
-
-.taskList {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  margin-bottom: 35px;
 }
 </style>
 
