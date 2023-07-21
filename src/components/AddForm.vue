@@ -1,21 +1,24 @@
 <template>
   <div class="wrapper">
-    <transition name="fade">
+    <transition name="bounce">
       <div
         @click="switchClosed"
         v-show="isClosed"
+        class="openBtn"
       >
-        <div class="addBtn">+</div>
+        +
       </div>
     </transition>
-    <transition name="fade">
+
+    <transition name="bounce">
       <div v-show="!isClosed">
         <button
-          class="close-btn"
+          class="closeBtn"
           @click="switchClosed"
         >
           ▲
         </button>
+
         <form class="addForm">
           <input
             v-model="taskTitle"
@@ -60,88 +63,87 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .wrapper {
   max-width: 500px;
   margin: 0 auto;
+  .openBtn {
+    height: 50px;
+    line-height: 45px;
+    font-size: 62px;
+    border: 1px solid #fcd9b8;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s linear;
+    box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
+    user-select: none;
+    &:hover {
+      background-color: #fcd9b8;
+      color: #17181d;
+      box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.5);
+    }
+  }
+  .closeBtn {
+    width: 100%;
+    vertical-align: middle;
+    height: 50px;
+    line-height: 42.5px;
+    background-color: #292c35;
+    border: #fcd9b8 1px solid;
+    font-size: 25px;
+    padding-bottom: 40px;
+    cursor: pointer;
+    transition: all 0.25s linear;
+    user-select: none;
+    &:hover {
+      background-color: #fcd9b8;
+      color: #292c35;
+    }
+  }
+  .addForm {
+    border: 1px solid #fcd9b8;
+    min-height: 50px;
+    transition: all 0.25s linear;
+    box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: #292c35;
+    input {
+      margin-bottom: 10px;
+      font-size: 24px;
+      background-color: #17181d;
+      border: 1px solid #fcd9b8;
+      padding: 5px 15px;
+      box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
+    }
+    button {
+      font-size: 24px;
+      background-color: #17181d;
+      cursor: pointer;
+      border: 1px solid #fcd9b8;
+      padding: 5px;
+      box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
+      transition: all 0.25s linear;
+      &:hover {
+        background-color: #fcd9b8;
+        color: #17181d;
+      }
+    }
+  }
 }
-.close-btn {
-  width: 100%;
-  vertical-align: middle;
-  height: 50px;
-  line-height: 42.5px;
-  background-color: #292c35;
-  border: #fcd9b8 1px solid;
-  font-size: 25px;
-  padding-bottom: 40px;
-  cursor: pointer;
-  transition: all 0.25s linear;
-  user-select: none;
-}
-.close-btn:hover {
-  background-color: #fcd9b8;
-  color: #292c35;
-}
-.addBtn {
-  height: 50px;
-  line-height: 45px;
-  font-size: 62px;
-  border: 1px solid #fcd9b8;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.25s linear;
-  box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
-  user-select: none;
-}
-.addBtn:hover {
-  background-color: #fcd9b8;
-  color: #17181d;
-  box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.5);
-}
-.addForm {
-  border: 1px solid #fcd9b8;
-  min-height: 50px;
-  transition: all 0.25s linear;
-  box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
-  padding: 25px 15px;
-  display: flex;
-  flex-direction: column;
-  background-color: #292c35;
-}
-.addForm input {
-  margin-bottom: 10px;
-  font-size: 24px;
-  background-color: #17181d;
-  border: 1px solid #fcd9b8;
-  padding: 5px 15px;
-  box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
-}
-.addForm button {
-  font-size: 24px;
-  background-color: #17181d;
-  cursor: pointer;
-  border: 1px solid #fcd9b8;
-  padding: 5px;
-  box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
-  transition: all 0.25s linear;
-}
-.addForm button:hover {
-  background-color: #fcd9b8;
-  color: #17181d;
-}
-.fade-enter-active {
+.bounce-enter-active {
   animation: bounce-in 0.5s;
   transform-origin: top;
   position: absolute;
   width: 500px;
 }
-.fade-leave-active {
+.bounce-leave-active {
   animation: bounce-in 0.5s reverse;
   transform-origin: top;
   position: absolute;
   width: 500px;
 }
-
 @keyframes bounce-in {
   0% {
     transform: scaleY(0);
