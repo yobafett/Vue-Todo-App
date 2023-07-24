@@ -1,7 +1,7 @@
 import WelcomePage from '@/pages/WelcomePage.vue';
 import TasksPage from '@/pages/TasksPage.vue';
 
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
     {
@@ -15,8 +15,8 @@ const routes = [
 ];
 
 const router = createRouter({
+    history: createWebHistory(),
     routes,
-    history: createWebHashHistory(process.env.BASE_URL)
 });
 
 export default router;
