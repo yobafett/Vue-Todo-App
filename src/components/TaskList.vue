@@ -12,6 +12,7 @@
         :key="task.id"
         @complete="switchComplete"
         @delete="removeTask"
+        @update="updateTask"
       />
     </transition-group>
 
@@ -43,6 +44,7 @@ export default {
       restoreFromSession: 'restoreFromSession',
       switchComplete: 'switchComplete',
       removeTask: 'removeTask',
+      updateTask: 'updateTask',
     }),
   },
   mounted() {
