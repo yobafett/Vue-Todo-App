@@ -3,12 +3,46 @@
     <div class="header">
       <div>
         <p class="id">task id: {{ task.id }}</p>
-        <p class="title">{{ task.title }}</p>
+
+        <form v-show="isTitleEdit">
+          <input
+            type="text"
+            ref="titleInputRef"
+            v-model="taskTitle"
+            @focusout="saveTitle"
+          />
+        </form>
+        <p
+          v-show="!isTitleEdit"
+          class="title"
+          @click="editTitle"
+        >
+          {{ taskTitle }}
+        </p>
       </div>
-      <p class="delBtn" @click="(e) => sendDelete()">🗙</p>
+      <p
+        class="delBtn"
+        @click="sendDelete"
+      >
+        🗙
+      </p>
     </div>
 
-    <p class="text">{{ task.text }}</p>
+    <form v-show="isTextEdit">
+      <input
+        type="text"
+        ref="textInputRef"
+        v-model="taskText"
+        @focusout="saveText"
+      />
+    </form>
+    <p
+      class="text"
+      v-show="!isTextEdit"
+      @click="editText"
+    >
+      {{ taskText }}
+    </p>
 
     <div class="controls">
       <CustomCheckbox
@@ -25,7 +59,42 @@ import CustomCheckbox from './CustomCheckbox';
 export default {
   name: 'TaskItem',
   props: ['task'],
+  data() {
+    return {
+      isTitleEdit: false,
+      taskTitle: this.task.title,
+      isTextEdit: false,
+      taskText: this.task.text,
+    };
+  },
   methods: {
+    editTitle() {
+      this.isTitleEdit = true;
+      setTimeout(() => {
+        this.$refs.titleInputRef.focus();
+      }, 100);
+    },
+    saveTitle() {
+      this.isTitleEdit = false;
+      this.sendUpdate();
+    },
+    editText() {
+      this.isTextEdit = true;
+      setTimeout(() => {
+        this.$refs.textInputRef.focus();
+      }, 100);
+    },
+    saveText() {
+      this.isTextEdit = false;
+      this.sendUpdate();
+    },
+    sendUpdate() {
+      this.$emit('update', {
+        id: this.task.id,
+        title: this.taskTitle,
+        text: this.taskText,
+      });
+    },
     sendDelete() {
       this.$emit('delete', this.task.id);
     },
