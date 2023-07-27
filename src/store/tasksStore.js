@@ -34,7 +34,12 @@ const tasksStore = {
     removeTask(state, id) {
       const objIndex = state.tasks.findIndex((obj) => obj.id === id);
       state.tasks.splice(objIndex, 1);
-    }
+    },
+    updateTask(state, { id, title, text }) {
+      const objIndex = state.tasks.findIndex((obj) => obj.id === id);
+      state.tasks[objIndex].title = title;
+      state.tasks[objIndex].text = text;
+    },
   },
   actions: {
     restoreFromSession(context) {
@@ -57,7 +62,11 @@ const tasksStore = {
     removeTask(context, id) {
       context.commit('removeTask', id);
       context.dispatch('saveToSession');
-    }
+    },
+    updateTask(context, payload) {
+      context.commit('updateTask', payload);
+      context.dispatch('saveToSession');
+    },
   }
 };
 
