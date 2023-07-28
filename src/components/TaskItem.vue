@@ -119,7 +119,7 @@ export default {
   border: 1px solid #fcd9b8;
   padding: 10px;
   border-radius: 1px;
-  min-height: 100px;
+  min-height: 150px;
   background-color: #292c35;
   box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
   transition: all 0.25s linear;
@@ -129,12 +129,22 @@ export default {
   &:hover {
     box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.75);
   }
+  form input {
+    background-color: #17181d;
+    border: 1px solid #292c35;
+    padding: 5px 10px;
+    width: 90%;
+    font-size: 20px;
+  }
   .header {
     border-bottom: 1px solid #fcd9b8;
     padding-bottom: 5px;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
+    form {
+      margin: 10px 0px;
+    }
     .id {
       font-size: 8px;
     }
