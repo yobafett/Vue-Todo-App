@@ -96,7 +96,7 @@ export default {
       });
     },
     sendDelete() {
-      this.$emit('delete', this.task.id);
+      this.$emit('delete', this.task);
     },
     sendComplete(e) {
       if (e.target.checked !== undefined) {
