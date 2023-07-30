@@ -1,4 +1,5 @@
 const taskSessionKey = 'tasks';
+const tagsSessionKey = 'tags';
 
 const tasksStore = {
   state: {
@@ -7,9 +8,11 @@ const tasksStore = {
       //   id: 1,
       //   title: "Task title",
       //   text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      //   complete: false
+      //   complete: false,
+      //   tags: ['asd','qwe']
       // },
-    ]
+    ],
+    tags: []
   },
   getters: {
   },
@@ -19,13 +22,22 @@ const tasksStore = {
         id: Date.now(),
         title: task.title,
         text: task.text,
-        complete: false
+        complete: false,
+        tags: task.tags
       };
 
       state.tasks = [...state.tasks, newTask];
     },
+    addTag(state, tag) {
+      const tagIndex = state.tags.findIndex((obj) => obj === tag);
+      if (tagIndex < 0)
+        state.tags = [...state.tags, tag];
+    },
     setTasks(state, tasks) {
       state.tasks = tasks;
+    },
+    setTags(state, tags) {
+      state.tags = tags;
     },
     switchComplete(state, { id, complete }) {
       const objIndex = state.tasks.findIndex((obj) => obj.id === id);
@@ -35,23 +47,48 @@ const tasksStore = {
       const objIndex = state.tasks.findIndex((obj) => obj.id === id);
       state.tasks.splice(objIndex, 1);
     },
-    updateTask(state, { id, title, text }) {
+    removeTag(state, tag) {
+      let tagEnters = 0;
+      let lastTagIndex;
+
+      state.tasks.forEach(task => {
+        lastTagIndex = task.tags.findIndex((obj) => obj === tag);
+        if (lastTagIndex >= 0)
+          tagEnters++;
+      })
+
+      if(tagEnters === 1 && state.tags.length === 1)
+        state.tags = [];
+      else if (tagEnters === 1)
+        state.tags.splice(lastTagIndex, 1);
+    },
+    updateTask(state, { id, title, text, tags }) {
       const objIndex = state.tasks.findIndex((obj) => obj.id === id);
       state.tasks[objIndex].title = title;
       state.tasks[objIndex].text = text;
+      state.tasks[objIndex].tags = tags;
     },
   },
   actions: {
     restoreFromSession(context) {
-      const tasksJson = window.sessionStorage.getItem(taskSessionKey)
+      const tagsJson = window.sessionStorage.getItem(tagsSessionKey);
+      if (tagsJson !== null)
+        context.commit('setTags', JSON.parse(tagsJson));
+
+      const tasksJson = window.sessionStorage.getItem(taskSessionKey);
       if (tasksJson !== null)
         context.commit('setTasks', JSON.parse(tasksJson));
     },
     saveToSession(context) {
-      const jsonData = JSON.stringify(context.state.tasks);
-      window.sessionStorage.setItem(taskSessionKey, jsonData);
+      const jsonDataTags = JSON.stringify(context.state.tags);
+      window.sessionStorage.setItem(tagsSessionKey, jsonDataTags);
+
+      const jsonDataTasks = JSON.stringify(context.state.tasks);
+      window.sessionStorage.setItem(taskSessionKey, jsonDataTasks);
     },
     addTask(context, task) {
+      task.tags.forEach(tag => context.commit('addTag', { taskId: task.id, tag: tag }));
+
       context.commit('addTask', task);
       context.dispatch('saveToSession');
     },
@@ -59,8 +96,10 @@ const tasksStore = {
       context.commit('switchComplete', payload);
       context.dispatch('saveToSession');
     },
-    removeTask(context, id) {
-      context.commit('removeTask', id);
+    removeTask(context, task) {
+      task.tags.forEach(tag => context.commit('removeTag', tag));
+
+      context.commit('removeTask', task.id);
       context.dispatch('saveToSession');
     },
     updateTask(context, payload) {
