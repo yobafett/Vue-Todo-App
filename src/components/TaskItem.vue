@@ -45,6 +45,9 @@
     </p>
 
     <div class="controls">
+      <div class="tags">
+        <div class="tag" v-for="(tag, index) in task.tags" :key="index">{{ tag }}</div>
+      </div>
       <CustomCheckbox
         :checked="task.complete"
         @click="(e) => sendComplete(e)"
@@ -123,6 +126,7 @@ export default {
   background-color: #292c35;
   box-shadow: 3px 3px 1px rgba(224, 145, 69, 0.25);
   transition: all 0.25s linear;
+  height: fit-content;
   & * {
     transition: all 0.25s linear;
   }
@@ -174,7 +178,25 @@ export default {
   }
   .controls {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    .tags {
+      width: 80%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      .tag {
+        border: 1px #17181d solid;
+        padding: 1px 10px;
+        background-color: rgba(23, 24, 29, 0.25);
+        border-radius: 2.5px;
+        cursor: pointer;
+        &:hover {
+          background-color: rgba(23, 24, 29, 0.75);
+          box-shadow: 1px 1px 1px rgba(224, 145, 69, 0.75);
+          color: #e09145;
+        }
+      }
+    }
   }
 }
 </style>
