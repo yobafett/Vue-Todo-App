@@ -68,6 +68,8 @@ export default {
       this.switchClosed();
       this.taskTitle = '';
       this.taskText = '';
+      this.taskTags = [''];
+      this.tagsCount = 1;
     },
     addTagsCount(e) {
       if (parseInt(e.target.getAttribute('data-keyAtr')) === this.tagsCount) {
