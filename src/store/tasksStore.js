@@ -1,5 +1,5 @@
-const taskSessionKey = 'tasks';
-const tagsSessionKey = 'tags';
+// const taskSessionKey = 'tasks';
+// const tagsSessionKey = 'tags';
 
 const tasksStore = {
   state: {
@@ -29,7 +29,7 @@ const tasksStore = {
       state.tasks = [...state.tasks, newTask];
     },
     addTag(state, tag) {
-      const tagIndex = state.tags.findIndex((obj) => obj === tag);
+      const tagIndex = state.tags.findIndex((existTag) => existTag === tag);
       if (tagIndex < 0)
         state.tags = [...state.tags, tag];
     },
@@ -57,7 +57,7 @@ const tasksStore = {
           tagEnters++;
       })
 
-      if(tagEnters === 1 && state.tags.length === 1)
+      if (tagEnters === 1 && state.tags.length === 1)
         state.tags = [];
       else if (tagEnters === 1)
         state.tags.splice(lastTagIndex, 1);
@@ -70,24 +70,24 @@ const tasksStore = {
     },
   },
   actions: {
-    restoreFromSession(context) {
-      const tagsJson = window.sessionStorage.getItem(tagsSessionKey);
-      if (tagsJson !== null)
-        context.commit('setTags', JSON.parse(tagsJson));
+    // restoreFromSession(context) {
+    //   const tagsJson = window.sessionStorage.getItem(tagsSessionKey);
+    //   if (tagsJson !== null)
+    //     context.commit('setTags', JSON.parse(tagsJson));
 
-      const tasksJson = window.sessionStorage.getItem(taskSessionKey);
-      if (tasksJson !== null)
-        context.commit('setTasks', JSON.parse(tasksJson));
-    },
-    saveToSession(context) {
-      const jsonDataTags = JSON.stringify(context.state.tags);
-      window.sessionStorage.setItem(tagsSessionKey, jsonDataTags);
+    //   const tasksJson = window.sessionStorage.getItem(taskSessionKey);
+    //   if (tasksJson !== null)
+    //     context.commit('setTasks', JSON.parse(tasksJson));
+    // },
+    // saveToSession(context) {
+    //   const jsonDataTags = JSON.stringify(context.state.tags);
+    //   window.sessionStorage.setItem(tagsSessionKey, jsonDataTags);
 
-      const jsonDataTasks = JSON.stringify(context.state.tasks);
-      window.sessionStorage.setItem(taskSessionKey, jsonDataTasks);
-    },
+    //   const jsonDataTasks = JSON.stringify(context.state.tasks);
+    //   window.sessionStorage.setItem(taskSessionKey, jsonDataTasks);
+    // },
     addTask(context, task) {
-      task.tags.forEach(tag => context.commit('addTag', { taskId: task.id, tag: tag }));
+      task.tags.forEach(tag => context.commit('addTag', tag));
 
       context.commit('addTask', task);
       context.dispatch('saveToSession');

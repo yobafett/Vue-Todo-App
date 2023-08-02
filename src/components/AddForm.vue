@@ -28,6 +28,21 @@
             v-model="taskText"
             placeholder="Task text..."
           />
+          <transition-group
+            class="tagSection"
+            name="tags"
+            tag="div"
+          >
+            <input
+              v-model="taskTags[n - 1]"
+              placeholder="Add tag..."
+              @focusin="addTagsCount"
+              @focusout="checkTagsCount"
+              v-for="n in tagsCount"
+              :key="n"
+              :data-keyAtr="n"
+            />
+          </transition-group>
           <button @click.prevent="sendForm">Add</button>
         </form>
       </div>
@@ -43,21 +58,35 @@ export default {
       this.isClosed = !this.isClosed;
     },
     sendForm() {
+      console.log();
       this.$emit('create', {
         title: this.taskTitle,
         text: this.taskText,
+        tags: this.taskTags,
       });
 
       this.switchClosed();
       this.taskTitle = '';
       this.taskText = '';
     },
+    addTagsCount(e) {
+      if (parseInt(e.target.getAttribute('data-keyAtr')) === this.tagsCount) {
+        this.tagsCount++;
+      }
+    },
+    checkTagsCount(e) {
+      if (e.target.value.length === 0 && this.tagsCount > 1) {
+        this.tagsCount--;
+      }
+    },
   },
   data() {
     return {
-      isClosed: true,
+      isClosed: false,
+      tagsCount: 1,
       taskTitle: '',
       taskText: '',
+      taskTags: [''],
     };
   },
 };
@@ -109,9 +138,17 @@ export default {
     display: flex;
     flex-direction: column;
     background-color: #292c35;
+    .tagSection {
+      display: flex;
+      flex-wrap: wrap;
+      input {
+        width: 22%;
+        margin-right: 14px;
+      }
+    }
     input {
       margin-bottom: 10px;
-      font-size: 24px;
+      font-size: 20px;
       background-color: #17181d;
       border: 1px solid #fcd9b8;
       padding: 5px 15px;
@@ -159,5 +196,14 @@ export default {
     transform: scaleY(1);
     transform: scaleX(1);
   }
+}
+.tags-enter-active,
+.tags-leave-active {
+  transition: all 0.5s ease;
+}
+.tags-enter-from,
+.tags-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
