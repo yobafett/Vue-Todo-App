@@ -1,5 +1,7 @@
 <template>
   <div>
+    <TagsList :tags="tags"/>
+
     <transition-group
       class="taskList"
       name="list"
@@ -29,14 +31,16 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import TagsList from '@/components/TagsList.vue';
 import TaskItem from '@/components/TaskItem.vue';
 
 export default {
   name: 'TaskList',
-  components: { TaskItem },
+  components: { TaskItem, TagsList },
   computed: {
     ...mapState({
       tasks: (state) => state.tasksStore.tasks,
+      tags: (state) => state.tasksStore.tags,
     }),
   },
   methods: {
