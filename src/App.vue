@@ -29,8 +29,6 @@ body {
 }
 .app {
   border-radius: 1px;
-  margin: 0px 20px;
-  margin-top: 50px;
   padding: 15px;
 }
 </style>

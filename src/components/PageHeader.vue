@@ -24,7 +24,7 @@ export default {
 
 <style scoped lang="scss">
 .pageHeader {
-  margin: 0px 20px;
+  margin: 0px 15px;
   margin-bottom: 15px;
   padding-bottom: 5px;
   border-bottom: 1px solid #fcd9b8;
@@ -34,8 +34,6 @@ export default {
   .nav {
     h1 {
       font-size: 72px;
-      margin-right: 25px;
-      padding-right: 25px;
     }
     h2 {
       font-size: 32px;
