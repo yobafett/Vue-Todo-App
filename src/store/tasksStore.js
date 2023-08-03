@@ -1,5 +1,5 @@
-// const taskSessionKey = 'tasks';
-// const tagsSessionKey = 'tags';
+const taskSessionKey = 'tasks';
+const tagsSessionKey = 'tags';
 
 const tasksStore = {
   state: {
@@ -70,22 +70,22 @@ const tasksStore = {
     },
   },
   actions: {
-    // restoreFromSession(context) {
-    //   const tagsJson = window.sessionStorage.getItem(tagsSessionKey);
-    //   if (tagsJson !== null)
-    //     context.commit('setTags', JSON.parse(tagsJson));
+    restoreFromSession(context) {
+      const tagsJson = window.sessionStorage.getItem(tagsSessionKey);
+      if (tagsJson !== null)
+        context.commit('setTags', JSON.parse(tagsJson));
 
-    //   const tasksJson = window.sessionStorage.getItem(taskSessionKey);
-    //   if (tasksJson !== null)
-    //     context.commit('setTasks', JSON.parse(tasksJson));
-    // },
-    // saveToSession(context) {
-    //   const jsonDataTags = JSON.stringify(context.state.tags);
-    //   window.sessionStorage.setItem(tagsSessionKey, jsonDataTags);
+      const tasksJson = window.sessionStorage.getItem(taskSessionKey);
+      if (tasksJson !== null)
+        context.commit('setTasks', JSON.parse(tasksJson));
+    },
+    saveToSession(context) {
+      const jsonDataTags = JSON.stringify(context.state.tags);
+      window.sessionStorage.setItem(tagsSessionKey, jsonDataTags);
 
-    //   const jsonDataTasks = JSON.stringify(context.state.tasks);
-    //   window.sessionStorage.setItem(taskSessionKey, jsonDataTasks);
-    // },
+      const jsonDataTasks = JSON.stringify(context.state.tasks);
+      window.sessionStorage.setItem(taskSessionKey, jsonDataTasks);
+    },
     addTask(context, task) {
       task.tags.forEach(tag => context.commit('addTag', tag));
 

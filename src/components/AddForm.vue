@@ -84,7 +84,7 @@ export default {
   },
   data() {
     return {
-      isClosed: false,
+      isClosed: true,
       tagsCount: 1,
       taskTitle: '',
       taskText: '',
